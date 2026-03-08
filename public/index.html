@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CollabForge</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="layout-shell">
+      <aside class="side-nav">
+        <div class="brand brand-sidebar">
+          <div class="brand-mark">CF</div>
+          <div>
+            <p class="label">Student builder OS</p>
+            <h1>CollabForge</h1>
+          </div>
+        </div>
+
+        <nav class="side-links">
+          <a href="#discover">Overview</a>
+          <a href="#workspace">Workspace</a>
+          <a href="#missions">Missions</a>
+          <a href="#challenges">Programs</a>
+          <a href="#resources">Resources</a>
+        </nav>
+
+        <section class="side-panel">
+          <p class="label">Current user</p>
+          <strong id="profileName">You</strong>
+          <span id="profileRole" class="status-pill">Builder</span>
+          <div class="side-metrics">
+            <div>
+              <span class="metric-label">Proof points</span>
+              <strong id="proofPoints" class="metric-value compact">0</strong>
+            </div>
+            <div>
+              <span class="metric-label">Check-ins</span>
+              <strong id="checkInsToday" class="metric-value compact">0</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="side-panel">
+          <p class="label">Operator notes</p>
+          <div class="side-note-list">
+            <article class="side-note">
+              <strong>Prioritize clarity</strong>
+              <p>Join fewer missions and ship stronger updates.</p>
+            </article>
+            <article class="side-note">
+              <strong>Protect focus time</strong>
+              <p>Use one sprint window to close one blocker completely.</p>
+            </article>
+          </div>
+        </section>
+      </aside>
+
+      <div class="content-shell">
+        <header class="topbar">
+          <div>
+            <p class="label">Builder dashboard</p>
+            <h2 class="page-title">Shipping workspace</h2>
+          </div>
+          <div class="top-actions">
+            <button id="checkInBtn" class="button button-ghost">Daily Check-in</button>
+            <button id="launchSprintBtn" class="button button-primary">Launch Sprint</button>
+          </div>
+        </header>
+
+        <section id="actionStatus" class="action-status" aria-live="polite">
+          <strong id="actionStatusTitle">Ready</strong>
+          <span id="actionStatusText">Use the top actions to create a sprint or log your daily check-in.</span>
+        </section>
+
+        <main class="app-main">
+          <section id="discover" class="hero-layout">
+            <section class="hero-panel">
+              <p class="label">Build in public. Earn visible proof.</p>
+              <h2 id="headline">Loading dashboard...</h2>
+              <p id="subheadline" class="hero-copy"></p>
+
+              <div class="hero-actions">
+                <a class="button button-primary" href="#missions" id="primaryCta">Browse Missions</a>
+                <button id="focusBtn" class="button button-secondary">Focus on active work</button>
+              </div>
+
+              <div class="briefing-panel">
+                <div class="briefing-chip">Live briefing</div>
+                <h3 id="spotlightTitle"></h3>
+                <p id="spotlightBody" class="support-text"></p>
+                <div class="chip-list" id="roleChips"></div>
+              </div>
+            </section>
+
+            <aside class="hero-rail">
+              <section class="hero-card">
+                <div class="section-row">
+                  <div>
+                    <p class="label">System snapshot</p>
+                    <h3>Live momentum</h3>
+                  </div>
+                  <strong id="liveCount" class="headline-number">0</strong>
+                </div>
+                <div class="summary-grid" id="statsGrid"></div>
+              </section>
+
+              <section class="hero-card hero-card-accent">
+                <p class="label">Today</p>
+                <div class="metric-stack">
+                  <div>
+                    <span class="metric-label">Sprint rooms</span>
+                    <strong id="sprintLaunches" class="metric-value">0</strong>
+                  </div>
+                  <div>
+                    <span class="metric-label">Live pulse</span>
+                    <p id="pulseText" class="support-text"></p>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </section>
+
+          <section class="metric-grid">
+            <article class="metric-card metric-card-accent">
+              <p class="label">Weekly streak</p>
+              <strong id="streakValue" class="metric-number">0</strong>
+              <p class="support-text">Consistency compounds faster than one-off activity.</p>
+            </article>
+            <article class="metric-card">
+              <p class="label">Joined missions</p>
+              <strong id="joinedMissions" class="metric-number">0</strong>
+              <p class="support-text">Teams where your work is currently expected.</p>
+            </article>
+            <article class="metric-card">
+              <p class="label">Tasks completed</p>
+              <strong id="completedTasks" class="metric-number">0</strong>
+              <p class="support-text">Tracked actions closed in your workspace.</p>
+            </article>
+            <article class="metric-card">
+              <p class="label">Weekly goal</p>
+              <strong id="weeklyGoal" class="metric-number">0</strong>
+              <p class="support-text">A clear target keeps the board honest.</p>
+            </article>
+          </section>
+
+          <section id="workspace" class="workspace-layout">
+            <section class="panel workspace-panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Workspace</p>
+                  <h3>Personal execution board</h3>
+                </div>
+                <div class="progress-copy">
+                  <span id="taskProgressText">0 of 0 complete</span>
+                  <div class="task-progress-bar">
+                    <span id="taskProgressFill"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="workspace-headline">
+                <strong id="focusWindow"></strong>
+                <p id="workspaceSummary" class="support-text"></p>
+              </div>
+
+              <div id="taskList" class="task-list"></div>
+              <div id="workspaceNotes" class="note-grid"></div>
+            </section>
+
+            <aside class="panel feed-panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Live feed</p>
+                  <h3>Activity stream</h3>
+                </div>
+              </div>
+              <div id="feedList" class="feed-list"></div>
+            </aside>
+          </section>
+
+          <section id="missions" class="missions-layout">
+            <section class="panel mission-directory">
+              <div class="section-row mission-toolbar">
+                <div>
+                  <p class="label">Mission directory</p>
+                  <h3>Find a team worth joining</h3>
+                </div>
+                <div class="filters">
+                  <label class="field">
+                    <span>Search</span>
+                    <input id="searchInput" type="search" placeholder="AI, backend, design, research" />
+                  </label>
+                  <label class="field">
+                    <span>Category</span>
+                    <select id="categoryFilter"></select>
+                  </label>
+                </div>
+              </div>
+              <div class="section-row mission-meta-row">
+                <p id="resultsText" class="support-text"></p>
+                <span class="support-text">Hover or open a mission to inspect the detail panel.</span>
+              </div>
+              <div id="projectsGrid" class="mission-grid"></div>
+            </section>
+
+            <aside class="panel mission-preview">
+              <div class="section-row">
+                <div>
+                  <p class="label">Mission spotlight</p>
+                  <h3 id="missionPreviewTitle">Select a mission</h3>
+                </div>
+              </div>
+              <p id="missionPreviewTagline" class="preview-tagline">Pick a project card to inspect the brief.</p>
+              <p id="missionPreviewDescription" class="support-text"></p>
+              <div id="missionPreviewMeta" class="chip-list"></div>
+              <div id="missionPreviewRoles" class="chip-list"></div>
+              <button id="missionPreviewButton" class="button button-primary full-width">Open Mission Brief</button>
+
+              <div class="preview-divider"></div>
+
+              <div class="section-row">
+                <div>
+                  <p class="label">Leaderboard</p>
+                  <h3>Builders with momentum</h3>
+                </div>
+                <div class="tab-row">
+                  <button class="tab-button is-active" data-range="weekly">Week</button>
+                  <button class="tab-button" data-range="monthly">Month</button>
+                </div>
+              </div>
+              <div id="leaderboardList" class="leaderboard-list"></div>
+            </aside>
+          </section>
+
+          <section id="challenges" class="program-layout">
+            <section class="panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Challenges</p>
+                  <h3>Programs with clear outcomes</h3>
+                </div>
+              </div>
+              <div id="challengeList" class="challenge-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Mentor rooms</p>
+                  <h3>Ask sharper questions</h3>
+                </div>
+              </div>
+              <div id="mentorList" class="mentor-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Community rooms</p>
+                  <h3>Places to collaborate</h3>
+                </div>
+              </div>
+              <div class="room-list">
+                <article class="room-card">
+                  <strong>Backend pairing room</strong>
+                  <p class="support-text">API debugging, schema reviews, and deployment handoff.</p>
+                </article>
+                <article class="room-card">
+                  <strong>Design critique room</strong>
+                  <p class="support-text">Readable UI, hierarchy fixes, and interaction polish reviews.</p>
+                </article>
+                <article class="room-card">
+                  <strong>Proof of work room</strong>
+                  <p class="support-text">Turn weekly progress into portfolio-ready narratives.</p>
+                </article>
+              </div>
+            </section>
+          </section>
+
+          <section id="resources" class="resource-layout">
+            <section class="panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Resource library</p>
+                  <h3>Templates, guides, and shipping support</h3>
+                </div>
+              </div>
+              <div id="resourceList" class="resource-grid"></div>
+            </section>
+
+            <aside class="panel announcement-panel">
+              <div class="section-row">
+                <div>
+                  <p class="label">Announcements</p>
+                  <h3>What to look at next</h3>
+                </div>
+              </div>
+              <div class="announcement-list">
+                <article class="announcement-card">
+                  <strong>UI clarity review</strong>
+                  <p class="support-text">Use the mentor room if a page still feels hard to scan after contrast fixes.</p>
+                </article>
+                <article class="announcement-card">
+                  <strong>Friday demo cycle</strong>
+                  <p class="support-text">Upload screenshots and short changelogs before the final standup.</p>
+                </article>
+                <article class="announcement-card">
+                  <strong>Proof pack update</strong>
+                  <p class="support-text">The portfolio evidence template has been refreshed with stronger examples.</p>
+                </article>
+              </div>
+            </aside>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="projectDialog" class="project-dialog">
+      <div class="dialog-shell">
+        <button id="closeDialogBtn" class="dialog-close" aria-label="Close dialog">x</button>
+        <p class="label">Mission brief</p>
+        <h3 id="dialogTitle"></h3>
+        <p id="dialogTagline" class="dialog-lead"></p>
+        <p id="dialogDescription" class="support-text"></p>
+        <div id="dialogMeta" class="chip-list dialog-meta"></div>
+        <button id="dialogJoinBtn" class="button button-primary full-width">Join this mission</button>
+      </div>
+    </dialog>
+
+    <template id="projectCardTemplate">
+      <article class="mission-card">
+        <div class="mission-topline">
+          <span class="mission-accent"></span>
+          <span class="mission-category"></span>
+        </div>
+        <h4 class="mission-title"></h4>
+        <p class="mission-tagline"></p>
+        <div class="mission-stats"></div>
+        <div class="chip-list mission-roles"></div>
+        <div class="mission-actions">
+          <button class="button button-secondary details-button">View Brief</button>
+          <button class="button button-primary join-button">Join Team</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
